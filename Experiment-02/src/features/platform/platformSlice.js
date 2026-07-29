@@ -1,15 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const platformLimits = {
+  Twitter: 280,
+  Facebook: 63206,
+  Instagram: 2200,
+  LinkedIn: 3000,
+};
+
 const initialState = {
   selectedPlatform: "Twitter",
+  characterLimit: platformLimits.Twitter,
 };
 
 const platformSlice = createSlice({
   name: "platform",
+
   initialState,
+
   reducers: {
     changePlatform: (state, action) => {
       state.selectedPlatform = action.payload;
+      state.characterLimit = platformLimits[action.payload];
     },
   },
 });
