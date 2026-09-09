@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { fetchPosts } from "./api";
-
 import {
   setEvents,
   setLoading,
@@ -10,20 +8,61 @@ import {
 } from "./store/calendarSlice";
 
 import { CalendarGrid } from "./components/calendar/CalendarGrid";
-import { ToggleControls } from "./components/Controls/ToggleControls";
+import { ToggleControls } from "./components/controls/ToggleControls";
 import LiveClock from "./components/clock/LiveClock";
-// Keep this if RenderMonitor.jsx exists
 import { RenderMonitor } from "./components/Monitor/RenderMonitor";
 
 import "./App.css";
 
 
+const initialPosts = [
+  {
+    id: "e1",
+    title: "Design review",
+    time: "10:00",
+    day: 0,
+  },
+  {
+    id: "e2",
+    title: "Ship v2.3",
+    time: "16:00",
+    day: 1,
+  },
+  {
+    id: "e3",
+    title: "1:1 with Sam",
+    time: "09:30",
+    day: 2,
+  },
+  {
+    id: "e4",
+    title: "Write proposal",
+    time: "13:00",
+    day: 3,
+  },
+  {
+    id: "e5",
+    title: "Sprint planning",
+    time: "15:00",
+    day: 4,
+  },
+  {
+    id: "e6",
+    title: "Client demo",
+    time: "10:00",
+    day: 5,
+  },
+  {
+    id: "e7",
+    title: "Grocery run",
+    time: "11:00",
+    day: 6,
+  },
+];
+
+
 function App() {
   const dispatch = useDispatch();
-
-  const events = useSelector(
-    (state) => state.calendar.events
-  );
 
   const loading = useSelector(
     (state) => state.calendar.loading
@@ -35,26 +74,19 @@ function App() {
 
 
   useEffect(() => {
-    loadPosts();
-  }, []);
-
-
-  const loadPosts = async () => {
-    dispatch(setLoading(true));
-
     try {
-      const posts = await fetchPosts();
+      dispatch(setLoading(true));
 
-      dispatch(setEvents(posts));
+      // Load calendar data locally
+      dispatch(setEvents(initialPosts));
+
       dispatch(setError(null));
-
     } catch (err) {
       dispatch(setError(err.message));
-
     } finally {
       dispatch(setLoading(false));
     }
-  };
+  }, [dispatch]);
 
 
   if (loading) {
@@ -81,7 +113,6 @@ function App() {
       <header className="app-header">
 
         <div className="header-left">
-
           <h1>
             <span className="postflow-logo">
               📅 PostFlow
@@ -91,7 +122,6 @@ function App() {
               Interactive Calendar
             </span>
           </h1>
-
         </div>
 
         <LiveClock />
@@ -103,8 +133,7 @@ function App() {
         <p>
           Drag events between days, then flip the switches
           below to see, in real time, what React.memo,
-          useCallback, and useMemo actually do to
-          re-renders.
+          useCallback, and useMemo do to re-renders.
         </p>
       </div>
 

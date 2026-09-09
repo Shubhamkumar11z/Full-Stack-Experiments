@@ -11,14 +11,14 @@ import {
 
 import { incrementRender } from "../../store/renderSlice";
 
-import { updatePostDay } from "../../api";
-
 import "./Calendar.css";
 
 
 export const DayCell = React.memo(
   ({ dayIndex, time, events, dragOver }) => {
+
     const dispatch = useDispatch();
+
 
     useEffect(() => {
       if (events.length > 0) {
@@ -43,25 +43,22 @@ export const DayCell = React.memo(
     };
 
 
-    const handleDrop = async (e) => {
+    const handleDrop = (e) => {
       e.preventDefault();
 
-      const eventId = e.dataTransfer.getData("text/plain");
+      const eventId =
+        e.dataTransfer.getData("text/plain");
+
 
       if (eventId) {
-        try {
-          await updatePostDay(eventId, dayIndex);
-
-          dispatch(
-            moveEvent({
-              eventId,
-              targetDay: dayIndex,
-            })
-          );
-        } catch (error) {
-          console.error("Failed to update post day:", error);
-        }
+        dispatch(
+          moveEvent({
+            eventId,
+            targetDay: dayIndex,
+          })
+        );
       }
+
 
       dispatch(resetDragState());
     };
@@ -69,17 +66,21 @@ export const DayCell = React.memo(
 
     return (
       <div
-        className={`day-cell ${dragOver ? "drag-over" : ""}`}
+        className={`day-cell ${
+          dragOver ? "drag-over" : ""
+        }`}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
       >
+
         {events.map((event) => (
           <EventCard
             key={event.id}
             event={event}
           />
         ))}
+
       </div>
     );
   }
