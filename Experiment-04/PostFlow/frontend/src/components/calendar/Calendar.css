@@ -1,0 +1,81 @@
+.calendar-grid {
+    display: grid;
+    grid-template-columns: 70px repeat(7, 1fr);
+    gap: 4px;
+    background: #f8faff;
+    padding: 8px 4px;
+    border-radius: 20px;
+  }
+  
+  .time-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #5e6f8d;
+    padding: 6px 4px;
+    text-align: right;
+    padding-right: 12px;
+  }
+  
+  .day-header {
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-align: center;
+    color: #1f2a44;
+    background: #f0f4fe;
+    padding: 8px 0;
+    border-radius: 30px;
+  }
+  
+  .day-cell {
+    background: #ffffff;
+    border-radius: 16px;
+    min-height: 60px;
+    padding: 6px 4px;
+    border: 1px solid #eef2f9;
+    transition: all 0.2s ease;
+    position: relative;
+  }
+  
+  .day-cell.drag-over {
+    background: #eaf1ff;
+    border-color: #3b6eff;
+    box-shadow: 0 0 0 2px rgba(59, 110, 255, 0.2);
+  }
+  
+  .event-card {
+    background: #eef5ff;
+    border-left: 4px solid #3b6eff;
+    border-radius: 8px;
+    padding: 5px 8px;
+    margin: 3px 0;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: #0b1b32;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: grab;
+    transition: all 0.15s ease;
+  }
+  
+  .event-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+  
+  .event-card:active {
+    cursor: grabbing;
+  }
+  
+  .event-title {
+    flex: 1;
+  }
+  
+  .event-time {
+    background: rgba(59, 110, 255, 0.12);
+    padding: 1px 8px;
+    border-radius: 40px;
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: #1f4bff;
+  }
